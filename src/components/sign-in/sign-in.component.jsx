@@ -19,8 +19,8 @@ class SignIn extends React.Component{
     }
 
     handleChange=(event)=>{
-const {value,name}=event.target;
-this.setState({[name]:value})
+    const {value,name}=event.target;
+    this.setState({[name]:value})
     }
 
 
@@ -34,9 +34,11 @@ this.setState({[name]:value})
                     <FormInput name='email' type='email' label='email' value={this.state.email} required handleChange={this.handleChange}/>
                     
                     <FormInput name='password' type='password' label='password' value={this.state.password} required handleChange={this.handleChange}/>
-                    
+                    <div className='buttons'>
                     <CustomButton type='submit'>Sign in</CustomButton>
-                    <CustomButton onClick={signInWithGoogle}>Sign in with Google</CustomButton>
+                    <CustomButton onClick={signInWithGoogle} isGoogleSignIn>Sign in with Google</CustomButton>
+                    </div>
+                    
                     
                 </form>
             </div>

@@ -58,8 +58,12 @@ export const convertCollectionsSnapshotToMap = (collections) => {
       items,
     };
   });
+  /* using reduce, transformedcollection is now changed to object from array,
+  accumulator starts with empty object adds every collection
+  
+  */
   return transformedCollection.reduce((accumulator, collection) => {
-    accumulator[collection.title.toLowerCase] = collection;
+    accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   }, {});
 };

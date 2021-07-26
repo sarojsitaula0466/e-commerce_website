@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
-
+/* reselect library memoize state and stops statetoprops to rerender component 
+if there is no state change  */
 const selectShop = (state) => state.shop;
 
 export const selectCollections = createSelector(

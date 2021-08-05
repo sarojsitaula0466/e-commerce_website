@@ -9,7 +9,7 @@ import Header from "./components/header/header.component";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.action";
 import { selectCurrentUser } from "./redux/user/user.selectors";
-
+import { selectCartTotal } from "./redux/cart/cart.selectors";
 import SignInAndSignUp from "./components/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import "./App.css";
@@ -51,7 +51,13 @@ class App extends React.Component {
               this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
             }
           />
-          <Route exact path="/checkout" component={CheckoutPage} />
+          <Route
+            exact
+            path="/checkout"
+            render={() =>
+              this.props.total === 0 ? <Redirect to="/" /> : <CheckoutPage />
+            }
+          />
         </Switch>
       </div>
     );
@@ -60,6 +66,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  total: selectCartTotal,
 });
 
 const mapDispatchToProps = (dispatch) => ({

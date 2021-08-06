@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import OutsideClickHandler from 'react-outside-click-handler';
 import {createStructuredSelector} from 'reselect'
 import {selectCartHidden} from '../../redux/cart/cart.selectors'
 import {selectCurrentUser} from '../../redux/user/user.selectors'
@@ -10,33 +11,9 @@ import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 import './header.styles.scss'
 function Header({currentUser,hidden}){
-    const [dropDown,setDropDown]=useState(hidden)
-    const container=React.createRef();
-    console.log(hidden)
-        useEffect(() => {
-            
-        function handleClickOutside(event){
-            if (
-                container.current &&
-                !container.current.contains(event.target)
-              ) {
-                setDropDown(true);
-              }
-      }
-      document.addEventListener("click", ()=>handleClickOutside());
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("click", ()=>handleClickOutside());
-      };
-      
-    });  
-   
-
-       
-   
-    console.log(hidden)
+  
     return(
-    <div className='header' ref={container}>
+    <div className='header'>
         <Link className='logo-container' to='/'>
             <Logo className='logo' />
         </Link>
@@ -52,7 +29,14 @@ function Header({currentUser,hidden}){
             }
             <CartIcon/>
         </div>
-            {dropDown?null:<CartDropdown/>}
+            {hidden?null:<OutsideClickHandler
+      onOutsideClick={() => {
+        console.log('hello')
+        alert('You clicked outside of this component!!!');
+      }}
+    >
+      <CartDropdown/>
+    </OutsideClickHandler>}
     </div>
 )}
 

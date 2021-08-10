@@ -11,29 +11,31 @@ import {auth} from '../../firebase/firebase.utils'
 import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 import './header.styles.scss'
-function Header({currentUser,hidden, trueCartHidden}){
-    const ref = useRef();
+const Header= React.forwardRef(({currentUser,hidden, trueCartHidden},ref)=>{
+   
 
   
     useEffect(() => {
       const checkIfClickedOutside = (e) => {
+          console.log(hidden)
         // If the menu is open and the clicked target is not within the menu,
         // then close the menu
-        /* if (hidden===false && ref.current && !ref.current.contains(e.target)) {
+        if (hidden===false && ref.current && !ref.current.contains(e.target)) {
             trueCartHidden()
-        } */
-        if (hidden){
-            console.log('hello')
+            console.log(hidden)
         }
+       /*  if (hidden){
+            console.log('hello')
+        } */
       };
-  
-      document.addEventListener("click", checkIfClickedOutside);
+      console.log(hidden)
+      document.addEventListener("mousedown", checkIfClickedOutside);
   
       return () => {
         // Cleanup the event listener
-        document.removeEventListener("click", checkIfClickedOutside);
+        document.removeEventListener("mousedown", checkIfClickedOutside);
       };
-    }, [hidden]);
+    });
     return(
     <div className='header'>
         <Link className='logo-container' to='/'>
@@ -49,7 +51,7 @@ function Header({currentUser,hidden, trueCartHidden}){
             {
                 currentUser?<div className='option' onClick={()=>auth.signOut()}>SIGN OUT</div>:<Link className='option' to='/signin'>SIGN IN</Link>
             }
-            <CartIcon/>
+            <CartIcon ref={ref}/>
         </div>
             {hidden?null:/* (<OutsideClickHandler className='header-dropdown'
       onOutsideClick={
@@ -62,7 +64,7 @@ function Header({currentUser,hidden, trueCartHidden}){
       <CartDropdown/>
     </OutsideClickHandler>) */ <CartDropdown ref={ref}/>}
     </div>
-)}
+)})
 
 const mapDispatchToProps=dispatch=>({
     trueCartHidden:()=>dispatch(trueCartHidden())

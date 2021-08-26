@@ -8,9 +8,12 @@
   }
 
   .items {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 10px; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 
     & .collection-item {
       margin-bottom: 30px;

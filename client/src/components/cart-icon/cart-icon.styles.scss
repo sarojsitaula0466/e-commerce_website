@@ -8,8 +8,8 @@
   cursor: pointer;
 
   .shopping-icon {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
   }
 
   .item-count {
@@ -18,4 +18,8 @@
     font-weight: bold;
     bottom: 12px;
   }
+}
+.colored-cart-icon {
+  background-color: green;
+  color: white;
 }
